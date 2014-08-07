@@ -1,0 +1,241 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1251" />
+<title>Руководство по настройке файла конфигурации nod32ms.conf</title>
+</head>
+<body>
+<div id="guide_text"><b>Руководство по настройке файла конфигурации nod32ms.conf</b></div>
+<br>
+<table width="400" border="0" cellspacing="0" cellpadding="0" style="border: #000000 1px solid;">
+  <tr>
+    <td style="border-bottom: #000000 1px solid;">&nbsp;Параметр: <b><font color="#FF0000">@selfupdate</font></b></td>
+  </tr>
+  <tr>
+    <td>&nbsp;Значение: <i>Автоматическое обновление программы, <b>bolean</b></i></td>
+  </tr>
+  <tr>
+    <td style="border-top: #000000 1px solid;">&nbsp;Пример:<b>selfupdate = true</b></td>
+  </tr>
+</table>
+<br>
+<table width="400" border="0" cellspacing="0" cellpadding="0" style="border: #000000 1px solid;">
+  <tr>
+    <td style="border-bottom: #000000 1px solid;">&nbsp;Параметр: <b><font color="#FF0000">@php_error_reporting</font></b></td>
+  </tr>
+  <tr>
+    <td>&nbsp;Значение: <i>Анолог функции error_reorting в php, может принимать как одно так несколько значений (<a href="http://ru.php.net/manual/en/function.error-reporting.php">http://ru.php.net/manual/en/function.error-reporting.php</a>), <b>string</b></i></td>
+  </tr>
+  <tr>
+    <td style="border-top: #000000 1px solid;">&nbsp;Пример: <b>php_error_reporting = E_ALL</b> или <b>php_error_reporting = 0</b></td>
+  </tr>
+</table>
+<br>
+<table width="400" border="0" cellspacing="0" cellpadding="0" style="border: #000000 1px solid;">
+  <tr>
+    <td style="border-bottom: #000000 1px solid;">&nbsp;Параметр: <b><font color="#FF0000">@mirror</font></b></td>
+  </tr>
+  <tr>
+    <td>&nbsp;Значение: <i>Домен или ip адрес сервера обновлений, <b>string</b></i></td>
+  </tr>
+  <tr>
+    <td style="border-top: #000000 1px solid;">&nbsp;Пример: <b>mirror = update.eset.com</b></td>
+  </tr>
+</table>
+<br>
+<table width="400" border="0" cellspacing="0" cellpadding="0" style="border: #000000 1px solid;">
+  <tr>
+    <td style="border-bottom: #000000 1px solid;">&nbsp;Параметр: <b><font color="#FF0000">@timezone</font></b></td>
+  </tr>
+  <tr>
+    <td>&nbsp;Значение: <i>Временная зона в *nix системах, <b>string</b></i></td>
+  </tr>
+  <tr>
+    <td style="border-top: #000000 1px solid;">&nbsp;Пример: <b>timezone = Europe/Moscow</b></td>
+  </tr>
+</table>
+
+<br>
+<table width="400" border="0" cellspacing="0" cellpadding="0" style="border: #000000 1px solid;">
+  <tr>
+    <td style="border-bottom: #000000 1px solid;">&nbsp;Параметр: <b><font color="#FF0000">@username</font></b></td>
+  </tr>
+  <tr>
+    <td>&nbsp;Значение: <i>Имя пользователя, используется только при выключенном автопоиске ключей keys_autofind=false, <b>string</b></i></td>
+  </tr>
+  <tr>
+    <td style="border-top: #000000 1px solid;">&nbsp;Пример: <b>username = TRIAL-12345678</b></td>
+  </tr>
+</table>
+<br>
+<table width="400" border="0" cellspacing="0" cellpadding="0" style="border: #000000 1px solid;">
+  <tr>
+    <td style="border-bottom: #000000 1px solid;">&nbsp;Параметр: <b><font color="#FF0000">@password</font></b></td>
+  </tr>
+  <tr>
+    <td>&nbsp;Значение: <i>Пароль, используется только при выключенном автопоиске ключей keys_autofind=false, <b>string</b></i></td>
+  </tr>
+  <tr>
+    <td style="border-top: #000000 1px solid;">&nbsp;Пример: <b>password = ep6cuadp85</b></td>
+  </tr>
+</table>
+<br>
+<table width="400" border="0" cellspacing="0" cellpadding="0" style="border: #000000 1px solid;">
+  <tr>
+    <td style="border-bottom: #000000 1px solid;">&nbsp;Параметр: <b><font color="#FF0000">@keys_autofind</font></b></td>
+  </tr>
+  <tr>
+    <td>&nbsp;Значение: <i>Автопоиск ключей, <b>boolean</b></i></td>
+  </tr>
+  <tr>
+    <td style="border-top: #000000 1px solid;">&nbsp;Пример: <b>keys_autofind = true</b></td>
+  </tr>
+</table>
+<br>
+<table width="400" border="0" cellspacing="0" cellpadding="0" style="border: #000000 1px solid;">
+  <tr>
+    <td style="border-bottom: #000000 1px solid;">&nbsp;Параметр: <b><font color="#FF0000">@keys_autofind_page</font></b></td>
+  </tr>
+  <tr>
+    <td>&nbsp;Значение: <i>Колличество анализируемых страниц при автопоиске, <b>integer</b></i></td>
+  </tr>
+  <tr>
+    <td style="border-top: #000000 1px solid;">&nbsp;Пример: <b>keys_autofind_page = 5</b></td>
+  </tr>
+</table>
+<br>
+<table width="400" border="0" cellspacing="0" cellpadding="0" style="border: #000000 1px solid;">
+  <tr>
+    <td style="border-bottom: #000000 1px solid;">&nbsp;Параметр: <b><font color="#FF0000">@temp_dir</font></b></td>
+  </tr>
+  <tr>
+    <td>&nbsp;Значение: <i>Путь к временной директории для временных файлов,<b> string</b></i></td>
+  </tr>
+  <tr>
+    <td style="border-top: #000000 1px solid;">&nbsp;Пример: <b>temp_dir = /var/nod32ms/temp</b></td>
+  </tr>
+</table>
+<br>
+<table width="400" border="0" cellspacing="0" cellpadding="0" style="border: #000000 1px solid;">
+  <tr>
+    <td style="border-bottom: #000000 1px solid;">&nbsp;Параметр: <b><font color="#FF0000">@work_dir</font></b></td>
+  </tr>
+  <tr>
+    <td>&nbsp;Значение: <i>Путь к рабочей директории для антивирусных сигнатур, http, ftp, share,<b> string</b></i></td>
+  </tr>
+  <tr>
+    <td style="border-top: #000000 1px solid;">&nbsp;Пример: <b>work_dir = /var/www/localhost/htdocs</b></td>
+  </tr>
+</table>
+<br>
+<table width="400" border="0" cellspacing="0" cellpadding="0" style="border: #000000 1px solid;">
+  <tr>
+    <td style="border-bottom: #000000 1px solid;">&nbsp;Параметр: <b><font color="#FF0000">@log_dir</font></b></td>
+  </tr>
+  <tr>
+    <td>&nbsp;Значение: <i>Путь к директории с журналом работы скрипта, <b>string</b></i></td>
+  </tr>
+  <tr>
+    <td style="border-top: #000000 1px solid;">&nbsp;Пример: <b>log_dir = /var/log/nod32ms</b></td>
+  </tr>
+</table>
+<br>
+<table width="400" border="0" cellspacing="0" cellpadding="0" style="border: #000000 1px solid;">
+  <tr>
+    <td style="border-bottom: #000000 1px solid;">&nbsp;Параметр: <b><font color="#FF0000">@write_to_log</font></b></td>
+  </tr>
+  <tr>
+    <td>&nbsp;Значение: <i>Запись в журнал, <b>boolean</b></i></td>
+  </tr>
+  <tr>
+    <td style="border-top: #000000 1px solid;">&nbsp;Пример: <b>write_to_log = true</b></td>
+  </tr>
+</table>
+<br>
+<table width="400" border="0" cellspacing="0" cellpadding="0" style="border: #000000 1px solid;">
+  <tr>
+    <td style="border-bottom: #000000 1px solid;">&nbsp;Параметр: <b><font color="#FF0000">@show_last_error</font></b></td>
+  </tr>
+  <tr>
+    <td>&nbsp;Значение: <i>Вывод в консоль последней ошибки скрипта, <b>boolean</b></i></td>
+  </tr>
+  <tr>
+    <td style="border-top: #000000 1px solid;">&nbsp;Пример: <b>show_last_error = true</b></td>
+  </tr>
+</table>
+<br>
+<table width="400" border="0" cellspacing="0" cellpadding="0" style="border: #000000 1px solid;">
+  <tr>
+    <td style="border-bottom: #000000 1px solid;">&nbsp;Параметр: <b><font color="#FF0000">@update_version2_winnt</font></b></td>
+  </tr>
+  <tr>
+    <td>&nbsp;Значение: <i>Загрузка сигнатур 2-ой версии антивируса для WindowsNT, <b>boolean</b></i></td>
+  </tr>
+  <tr>
+    <td style="border-top: #000000 1px solid;">&nbsp;Пример: <b>update_version2_winnt = true</b></td>
+  </tr>
+</table>
+<br>
+<table width="400" border="0" cellspacing="0" cellpadding="0" style="border: #000000 1px solid;">
+  <tr>
+    <td style="border-bottom: #000000 1px solid;">&nbsp;Параметр: <b><font color="#FF0000">@update_version2_win98</font></b></td>
+  </tr>
+  <tr>
+    <td>&nbsp;Значение: <i>Загрузка сигнатур 2-ой версии антивируса для Windows98, <b>boolean</b></i></td>
+  </tr>
+  <tr>
+    <td style="border-top: #000000 1px solid;">&nbsp;Пример: <b>update_version2_win98 = true</b></td>
+  </tr>
+</table>
+<br>
+<table width="400" border="0" cellspacing="0" cellpadding="0" style="border: #000000 1px solid;">
+  <tr>
+    <td style="border-bottom: #000000 1px solid;">&nbsp;Параметр: <b><font color="#FF0000">@update_version2_language</font></b></td>
+  </tr>
+  <tr>
+    <td>&nbsp;Значение: <i>Загрузка определенных языковых локализаций для 2-ой версии антивируса, <b>string</b></i></td>
+  </tr>
+  <tr>
+    <td style="border-top: #000000 1px solid;">&nbsp;Пример: <b>update_version2_language = en</b> или <b>update_version2_language = en, fr</b></td>
+  </tr>
+</table>
+<br>
+<table width="400" border="0" cellspacing="0" cellpadding="0" style="border: #000000 1px solid;">
+  <tr>
+    <td style="border-bottom: #000000 1px solid;">&nbsp;Параметр: <b><font color="#FF0000">@update_version34_arch32</font></b></td>
+  </tr>
+  <tr>
+    <td>&nbsp;Значение: <i>Загрузка сигнатур 3 и 4 версии антивируса для 32-х битных систем, <b>boolean</b></i></td>
+  </tr>
+  <tr>
+    <td style="border-top: #000000 1px solid;">&nbsp;Пример: <b>update_version34_arch32 = true</b></td>
+  </tr>
+</table>
+<br>
+<table width="400" border="0" cellspacing="0" cellpadding="0" style="border: #000000 1px solid;">
+  <tr>
+    <td style="border-bottom: #000000 1px solid;">&nbsp;Параметр: <b><font color="#FF0000">@update_version34_arch64</font></b></td>
+  </tr>
+  <tr>
+    <td>&nbsp;Значение: <i>Загрузка сигнатур 3 и 4 версии антивируса для 64-х битных систем, <b>boolean</b></i></td>
+  </tr>
+  <tr>
+    <td style="border-top: #000000 1px solid;">&nbsp;Пример: <b>update_version34_arch64 = true</b></td>
+  </tr>
+</table>
+<br>
+<table width="400" border="0" cellspacing="0" cellpadding="0" style="border: #000000 1px solid;">
+  <tr>
+    <td style="border-bottom: #000000 1px solid;">&nbsp;Параметр: <b><font color="#FF0000">@update_version34_language</font></b></td>
+  </tr>
+  <tr>
+    <td>&nbsp;Значение: <i>Загрузка определенных языковых локализаций для 3 и 4 версии антивируса, <b>string</b></i></td>
+  </tr>
+  <tr>
+    <td style="border-top: #000000 1px solid;">&nbsp;Пример: <b>update_version34_language = rus</b> или <b>update_version34_language = rus, enu</b></td>
+  </tr>
+</table>
+<br>
+<div align="left" id="copyright"><b style="color:#06F; font-size:10px; font-family:'Verdana';">nod32ms guide by alexco / 26.09.2011 - 28.03.2012</b></div>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1251" />
+<title>Установка nod32 mirror script под систему Windows</title>
+</head>
+<body>
+<div align="left"><img src="windows.png" width="128" height="128" /></div>
+<h3 style="color:#C00;">Установка nod32 mirror script под систему Windows</h3>
+<table width="600" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>1. Скачиваем последнюю версию скрипта</b></td>
+  </tr>
+  <tr>
+    <td>http://213.141.141.87/files/nod32ms_latest.rar</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><b>2. Создаем рабочий каталог для содержимого архива</b></td>
+  </tr>
+  <tr>
+    <td>mkdir c:\nod32ms\</td>
+  </tr>
+    <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><b>3. Переходим в рабочий каталог</b></td>
+  </tr>
+  <tr>
+    <td>cd c:\nod32ms\</td>
+  </tr>
+    <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><b>4. Извлекаем содержимое архива</b></td>
+  </tr>
+  <tr>
+    <td>unrar x -y \путь до файла\nod32ms_latest.rar c:\nod32ms\</td>
+  </tr>
+    <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><b>5. Создаем файл ручного запуска</b></td>
+  </tr>
+  <tr>
+    <td>c:\nod32ms\manual_start.bat</td>
+  </tr>
+    <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><b>6. Добавляем в файл manual_start.bat параметры ручного запуска</b></td>
+  </tr>
+  <tr>
+    <td> \путь до php\php.exe -q update.php</td>
+  </tr>
+    <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><b>7. Скачиваем любой cron под Windows и прописываем туда </b></td>
+  </tr>
+  <tr>
+    <td>\путь до php\php.exe -q c:\nod32ms\update.php</td>
+  </tr>
+    <tr>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+<br>
+<div align="left" id="copyright"><b style="color:#06F; font-size:10px; font-family:'Verdana';">nod32ms guide by alexco / 26.09.2011</b></div>
+</body>
+</html>
