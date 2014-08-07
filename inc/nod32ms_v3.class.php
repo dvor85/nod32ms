@@ -179,7 +179,7 @@ class nod32ms //Базовый класс программы
 		}
 		
 		$url="http://".$login.":".$password."@".$this->CONFIG['mirror'].$this->FILE['file'][0];
-		print_r($url);
+		//print_r($url);
         if(file_get_contents($url)) 
         { 
             return true;      
