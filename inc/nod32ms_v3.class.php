@@ -173,6 +173,7 @@ class nod32ms //Базовый класс программы
     {
 		//$url="http://".$login.":".$password."@".$this->CONFIG['mirror']."/v3-rel-sta/mod_002_engine_19504/em002_32_n2.nup";
 		
+		print_r($this->FILE['file'][0]);
 		if (empty($this->FILE['file'][0])) {
 			return false;
 		}
@@ -471,7 +472,7 @@ class nod32ms //Базовый класс программы
         if($this->files->CheckFile($file))  
         {
         
-		$section=parse_ini_file($file,true,INI_SCANNER_RAW);	
+		$section=$this->parser->ParseSectionVar($file);	
         //$section = $this->parser->ParseSectionVar($file);
         
         //unset($section['HOSTS'],$section['Expire'], $section['SETUP'], $section['PCUVER']);
@@ -665,7 +666,7 @@ class nod32ms //Базовый класс программы
              
             foreach($this->FILE['VF'] as $value)
             {				
-				$section=parse_ini_file($this->CONFIG['temp_dir'].DS.$value.DS.'update.ver',true,INI_SCANNER_RAW);
+				$section=$this->parser->ParseSectionVar($this->CONFIG['temp_dir'].DS.$value.DS.'update.ver');
 				foreach($section as $sn=>$sv) {
 					foreach($sv as $key=>$val) {
 						if ($key=='file') {
