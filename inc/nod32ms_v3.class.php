@@ -173,11 +173,13 @@ class nod32ms //Базовый класс программы
     {
 		//$url="http://".$login.":".$password."@".$this->CONFIG['mirror']."/v3-rel-sta/mod_002_engine_19504/em002_32_n2.nup";
 		
-		print_r($this->FILE['file'][0]);
+		//print_r($this->FILE['file'][0]);
 		if (empty($this->FILE['file'][0])) {
 			return false;
 		}
+		
 		$url="http://".$login.":".$password."@".$this->CONFIG['mirror'].$this->FILE['file'][0];
+		print_r($url);
         if(file_get_contents($url)) 
         { 
             return true;      
@@ -518,10 +520,8 @@ class nod32ms //Базовый класс программы
                         {
                             if(ereg($tpl[$a], $array['file'][$i]))
                             {
-                                //$this->FILE['file'][]    = substr($array['file'][$i], 0, -1);
-								$this->FILE['file'][]    = $array['file'][$i];
-                                //$this->FILE['size'][]    = substr($array['size'][$i], 0, -1); 
-                                $this->FILE['size'][]    = $array['size'][$i]; 
+								$this->FILE['file'][]    = trim($array['file'][$i]);
+                                $this->FILE['size'][]    = trim($array['size'][$i]); 
                             }
                         } 
                     }
