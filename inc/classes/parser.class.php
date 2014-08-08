@@ -1,63 +1,58 @@
 <?php
 class parser
 {  
-    private function ParseCustom($handle, $pattern)
+    public function ParseSectionVar($filename,$has_sections=true)
     {
-        if(preg_match_all("/$pattern/", $handle, $result, PREG_PATTERN_ORDER))  
-        {
-            return $result;       
-        }    
-    } 
-    
-    public function ParseSectionVar($heandle)
-    {
-	$ini = file($heandle);
-	
-	foreach ($ini as $i)
-	{
-	    if (@preg_match('/\[(.+)\]/', $i, $matches)) 
-	    {
-		$last = $matches[1];
-	    }
-	    elseif (@preg_match('/(.+)=(.+)/', $i, $matches)) 
-	    {
-		$cats[$last][$matches[1]] = $matches[2];
-	    }
-	}
-	return $cats;
+		$ini = preg_split('/\r?\n/',file_get_contents($filename));
+		$cats=array();
+		if ($has_sections) {
+			foreach ($ini as $i)
+			{
+				if (@preg_match('/^\s*\[\s*(.+?)\s*\]\s*$/i', $i, $matches)) {
+					$last = $matches[1];
+				} elseif (@preg_match('/^\s*(.+?)\s*=\s*(.+?)\s*$/i', $i, $matches)) {
+					$cats[$last][$matches[1]] = $matches[2];
+				}
+			}
+		} else {
+			foreach ($ini as $i)
+			{
+				if (@preg_match('/^\s*(.+?)\s*=\s*(.+?)\s*$/i', $i, $matches)) {
+					$cats[$matches[1]] = $matches[2];
+				}
+			}
+		}
+		return $cats;
     }
 
-    public function LoadParseFile($filename)
-    {
-        return @file_get_contents($filename);
+    public function ParseKeyVal($filename)
+    {		
+		$section=$this->ParseSectionVar($filename,false);				    
+		return $section;
     }
     
-    public function ParseVar($handle)
+    public function ParseValueOne($filename, $key, $def='')
     {
-        return $this->ParseCustom($handle, "(.+)=(.+)\s");    
+		$res=$this->ParseKeyVal($filename);
+		if (isset($res[$key])) {
+			return $res[$key];
+		}
+		return $def;        
     }
     
-    public function ParseValueOne($handle, $value)
+     
+    public function ParseKey($filename)
     {
-        $result = $this->ParseCustom($handle, "$value=(.+)\s"); 
-        return substr($result[1][0], 0, -1);   
-    }
-    
-    public function ParseValue($handle, $value)
-    {
-        return $this->ParseCustom($handle, "$value=(.+)\s");    
-    }
-    
-    public function ParseKey($handle)
-    {
-        return $this->ParseCustom($handle, "(.+):(.+)\s");   
+		if(preg_match_all("\s*(.+?):(.+?)\s*", $filename, $result, PREG_PATTERN_ORDER)) {
+			return $result;			
+		}
     }
 	
 	public function write_ini_file($assoc_arr, $path, $has_sections=FALSE) { 		
 		$content = ""; 
 		if ($has_sections) { 
 			foreach ($assoc_arr as $key=>$elem) { 
-				$content .= "[".$key."]\n"; 
+				$content .= "[".$key."]\r\n"; 
 				foreach ($elem as $key2=>$elem2) { 
 					if(is_array($elem2)) 
 					{ 
@@ -77,11 +72,11 @@ class parser
 				{ 
 					for($i=0;$i<count($elem);$i++) 
 					{ 
-						$content .= $key."[] = ".$elem[$i]."\n"; 
+						$content .= $key."[]=".$elem[$i]."\r\n"; 
 					} 
 				} 
-				else if($elem=="") $content .= $key." = \n"; 
-				else $content .= $key." = ".$elem."\n"; 
+				else if($elem=="") $content .= $key."=\r\n"; 
+				else $content .= $key."=".$elem."\r\n"; 
 			} 
 		} 
 	

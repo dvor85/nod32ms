@@ -120,10 +120,10 @@ class nod32ms //Базовый класс программы
     {
         $temp_file  = $this->CONFIG['temp_dir'].DS.'nod32ms.ver';
         
-        $old_file = $this->parser->LoadParseFile($temp_file); 
+        //$old_file = $this->parser->LoadParseFile($temp_file); 
         
-        $old['version_number']      = $this->parser->ParseValueOne($old_file, 'version_number');
-        $old['version_title']       = $this->parser->ParseValueOne($old_file, 'version_title');
+        $old['version_number']      = $this->parser->ParseValueOne($temp_file, 'version_number');
+        $old['version_title']       = $this->parser->ParseValueOne($temp_file, 'version_title');
         
         return $old['version_title'].' ('.$old['version_number'].')';
     }
@@ -234,16 +234,16 @@ class nod32ms //Базовый класс программы
     {
         if($this->files->CheckFile($filename))
         {
-            $config = $this->parser->LoadParseFile($filename);
-            $array  = $this->parser->ParseVar($config); 
+            //$config = $this->parser->LoadParseFile($filename);			
+            $this->CONFIG = $this->parser->ParseKeyVal($filename); 
 
-            for($i=0; $i < count($array[1]); $i++)
+            /*for($i=0; $i < count($array[1]); $i++)
             {
                 $array[1][$i] = str_replace(" ", "", $array[1][$i]);
                 $array[2][$i] = str_replace(" ", "", $array[2][$i]);
                 $array[2][$i] = str_replace("\r", "", $array[2][$i]);
                 $this->CONFIG[$array[1][$i]] = $array[2][$i];        
-            }
+            }*/
         }
     }
     
@@ -255,8 +255,8 @@ class nod32ms //Базовый класс программы
         {
             if(filesize($this_file) > 0)
             {
-                $keys   = $this->parser->LoadParseFile($this_file);
-                $array  = $this->parser->ParseKey($keys);
+                //$keys   = $this->parser->LoadParseFile($this_file);
+                $array  = $this->parser->ParseKey($this_file);
 
                 for($i=0; $i < count($array[1]); $i++)
                 {
@@ -451,17 +451,13 @@ class nod32ms //Базовый класс программы
         }
     }
 	
-	/*public function getmodfilename($file) {
-		$arr=explode('_',dirname($file));
-		if (count($arr)>3) {
-			unset($arr[count($arr)-1]);
-			return implode('_',$arr)."/".basename($file);
-			//return substr(dirname($file),0,strrpos(dirname($file),'_'))."/".basename($file);
-		} else
-			return $file;		
-	}*/
 	public function getmodfilename($file) {
-		return substr(dirname($file),0,strrpos(dirname($file),'_'))."/".basename($file);
+		//return substr(dirname($file),0,strrpos(dirname($file),'_'))."/".basename($file);
+		$p=explode('/',$file);
+		if(count($p)>1) {
+			$p[count($p)-2] = preg_replace('/_\d+$/','',$p[count($p)-2]);
+		}
+		return implode('/',$p);
 	}
     
     public function ParseUpdateVer($version_folder) //Получение информации из файла update.ver
@@ -569,18 +565,18 @@ class nod32ms //Базовый класс программы
                     $new_file = $this->parser->LoadParseFile($file);  
                     $old_file = $this->parser->LoadParseFile($temp_file); 
 
-                    $new['version_number']      = $this->parser->ParseValueOne($new_file, 'version_number'); 
-                    $old['version_number']      = $this->parser->ParseValueOne($old_file, 'version_number');
+                    $new['version_number']      = $this->parser->ParseValueOne($file, 'version_number'); 
+                    $old['version_number']      = $this->parser->ParseValueOne($temp_file, 'version_number');
 
                     if($new['version_number'] > $old['version_number'])
                     {
                         $this->files->DeleteFile($temp_file);
                         $this->tools->Wget($file, $temp_dir);
                         
-                        $new['version_title']   = $this->parser->ParseValueOne($new_file, 'version_title'); 
-                        $new['update_date']     = $this->parser->ParseValueOne($new_file, 'update_date');
-                        $new['update_file']     = $this->parser->ParseValueOne($new_file, 'update_file');
-                        $new['update_size']     = $this->parser->ParseValueOne($new_file, 'update_size');
+                        $new['version_title']   = $this->parser->ParseValueOne($file, 'version_title'); 
+                        $new['update_date']     = $this->parser->ParseValueOne($file, 'update_date');
+                        $new['update_file']     = $this->parser->ParseValueOne($file, 'update_file');
+                        $new['update_size']     = $this->parser->ParseValueOne($file, 'update_size');
                         
                         $this->tools->Wget('http://'.MASTERHOST.'/files/'.$new['update_file'], SELF);
 
