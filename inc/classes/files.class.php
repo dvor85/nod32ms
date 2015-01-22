@@ -45,7 +45,7 @@ class files
         {
             $file = @file_get_contents($filename);
             
-            $file = str_replace($text."\n", "", $file);
+            $file = preg_replace("/$text\\r*\\n+/", "", $file);
             file_put_contents($filename, $file);
         }    
     }

@@ -17,7 +17,7 @@ class parser
 		} else {
 			foreach ($ini as $i)
 			{
-				if (@preg_match('/^\s*(.+?)\s*=\s*(.+?)\s*$/i', $i, $matches)) {
+				if (@preg_match('/^\s*(.+?)\s*[=:]\s*(.+?)\s*$/i', $i, $matches)) {
 					$cats[$matches[1]] = $matches[2];
 				}
 			}
@@ -41,12 +41,12 @@ class parser
     }
     
      
-    public function ParseKey($filename)
-    {
-		if(preg_match_all("\s*(.+?):(.+?)\s*", $filename, $result, PREG_PATTERN_ORDER)) {
-			return $result;			
-		}
-    }
+//    public function ParseKey($filename)
+//    {
+//		if(preg_match("/^\s*(.+?)\s*[=:]\s*(.+?)\s*$/i"), $filename, $result) {
+//			return $result;			
+//		}
+//    }
 	
 	public function write_ini_file($assoc_arr, $path, $has_sections=FALSE) { 		
 		$content = ""; 

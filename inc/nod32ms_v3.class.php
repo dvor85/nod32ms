@@ -179,7 +179,7 @@ class nod32ms //Базовый класс программы
 		}
 		
 		$url="http://".$login.":".$password."@".$this->CONFIG['mirror'].$this->FILE['file'][0];
-		//print_r($url);
+		//var_dump($url);
         if(file_get_contents($url)) 
         { 
             return true;      
@@ -256,21 +256,20 @@ class nod32ms //Базовый класс программы
             if(filesize($this_file) > 0)
             {
                 //$keys   = $this->parser->LoadParseFile($this_file);
-                $array  = $this->parser->ParseKey($this_file);
+                $array  = $this->parser->ParseKeyVal($this_file);
 
-                for($i=0; $i < count($array[1]); $i++)
+                foreach($array as $login => $pass)
                 {
-                    $array[2][$i] = substr($array[2][$i] ,0, -1);
 
-                    if($this->CheckKey($array[1][$i], $array[2][$i]) == True)
+                    if($this->CheckKey($login, $pass) == True)
                     {
-                        $this->KEYS['login'][$i]    = $array[1][$i]; 
-                        $this->KEYS['password'][$i] = $array[2][$i]; 
+                        $this->KEYS['login'][]    = $login; 
+                        $this->KEYS['password'][] = $pass; 
                     }
                     else
                     {
-                        $this->files->DeleteFileLine($this_file, $array[1][$i].":".$array[2][$i]);
-                        $this->WriteToLog("REMOVE INVALID KEY [".$array[1][$i].":".$array[2][$i]."]");          
+                        $this->files->DeleteFileLine($this_file, $login.":".$pass);
+                        $this->WriteToLog("REMOVE INVALID KEY [".$login.":".$pass."]");          
                     }    
                 } 
                 
