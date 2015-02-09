@@ -303,7 +303,7 @@ class nod32ms //Базовый класс программы
             //$tag_array = array("eset", "nod32", "keys", "login", "password", "username", "eav-", "trial-");
             
             $date       = date("Y");
-            $keyword    = trim("nod32+username+eav-+trial-".$date);
+            $keyword    = trim("nod32+username+eav-+trial-");
             
             $count      = 0;
             $max_count  = $this->CONFIG['keys_autofind_page'] * 10;
