@@ -671,16 +671,20 @@ class nod32ms //Базовый класс программы
 					}
 				}
 				
-                $this->files->DeleteFile($this->CONFIG['work_dir'].DS.$value.DS.'update.ver');
-				$this->parser->write_ini_file($section,$this->CONFIG['work_dir'].DS.$value.DS.'update.ver',true);
+		$work_path = $this->CONFIG['work_dir'].DS.$value.DS;
+                if (!is_dir($work_path)) {
+                    mkdir($work_path,0777,true);
+                }
+                $this->files->DeleteFile($work_path.DS.'update.ver');
+		$this->parser->write_ini_file($section,$work_path.'update.ver',true);
                 
-                if($this->files->CheckFile($this->CONFIG['work_dir'].DS.$value.DS.'update.ver'))
+                if($this->files->CheckFile($work_path.'update.ver'))
                 {
-                    $this->WriteToLog("COPY TEMP [update.ver] TO [".$this->CONFIG['work_dir'].DS.$value.DS."update.ver]");    
+                    $this->WriteToLog("COPY TEMP [update.ver] TO [".$work_path."update.ver]");    
                 }
                 else
                 {
-                    $this->SetError(__METHOD__, "FILE [".$this->CONFIG['temp_dir'].DS.$value.DS.'update.ver'."] NOT COPY TO [".$this->CONFIG['work_dir'].DS.$value.DS."");
+                    $this->SetError(__METHOD__, "FILE [".$this->CONFIG['temp_dir'].DS.$value.DS.'update.ver'."] NOT COPY TO [".$work_path.DS."");
                 }  
             }
         }    
