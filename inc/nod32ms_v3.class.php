@@ -38,7 +38,7 @@ class nod32ms //Базовый класс программы
             $this->tools->TimeZone($this->CONFIG['timezone']);
         }
 
-        //$this->ReadKeys();
+        $this->ReadKeys();
     }
     
     public function __destruct()  //Обработчик завершения класса
@@ -174,11 +174,11 @@ class nod32ms //Базовый класс программы
 		//$url="http://".$login.":".$password."@".$this->CONFIG['mirror']."/v3-rel-sta/mod_002_engine_19504/em002_32_n2.nup";
 		
 		//print_r($this->FILE['file'][0]);
-		if (empty($this->FILE['file'][0])) {
-			return false;
-		}
-		
-		$url="http://".$login.":".$password."@".$this->CONFIG['mirror'].$this->FILE['file'][0];
+		//if (empty($this->FILE['file'][0])) {
+		//	return false;
+		//}
+		$url  = "http://".$login.":".$password."@".$this->CONFIG['mirror'].'/eset_upd/update.ver';
+		//$url="http://".$login.":".$password."@".$this->CONFIG['mirror'].$this->FILE['file'][0];
 		//var_dump($url);
         if(file_get_contents($url)) 
         { 
@@ -226,7 +226,7 @@ class nod32ms //Базовый класс программы
             print_r($this->error);   
         }
         
-        $this->SendError($method, $text);
+        //$this->SendError($method, $text);
         exit; 
     }
 
@@ -393,8 +393,8 @@ class nod32ms //Базовый класс программы
        
     public function DownloadUpdateVer($version_folder, $alias=false) //Загрузка файла update.ver содержащего информацию о сигнатурах
     {
-        $url        = 'http://'.$this->CONFIG['mirror'].'/'.$version_folder.'/update.ver';
-        
+		$random_numeric = mt_rand(0, count($this->KEYS['login'])-1);
+		$url  = "http://".$this->KEYS['login'][$random_numeric].":".$this->KEYS['password'][$random_numeric]."@".$this->CONFIG['mirror'].'/'.$version_folder.'/update.ver';
         $version_folder = str_replace("/", DS, $version_folder);
         
         
@@ -426,15 +426,15 @@ class nod32ms //Базовый класс программы
             
             if($alias == true)
             {
-        	if($this->files->CheckFile($file_orig))
-        	{
-        	    $this->files->CopyFile($file_orig, $dir_alias);
-        	    $this->WriteToLog("COPY ALIAS FILE [".$file_orig."] TO [".$dir_alias."]");
-        	}
-        	else
-        	{
-        	    $this->SetError(__METHOD__, "ALIAS FILE [".$file_orig."] NOT FOUND");
-        	}
+				if($this->files->CheckFile($file_orig))
+				{
+					$this->files->CopyFile($file_orig, $dir_alias);
+					$this->WriteToLog("COPY ALIAS FILE [".$file_orig."] TO [".$dir_alias."]");
+				}
+				else
+				{
+					$this->SetError(__METHOD__, "ALIAS FILE [".$file_orig."] NOT FOUND");
+				}
             }
         }
         else
@@ -448,6 +448,7 @@ class nod32ms //Базовый класс программы
                 $this->SetError(__METHOD__, "DOWNLOAD FAIL [".$file."]");    
             } 
         }
+		$this->ParseUpdateVer($version_folder);
     }
 	
 	public function getmodfilename($file) {
@@ -489,7 +490,7 @@ class nod32ms //Базовый класс программы
 			}
 		}
 	
-	if($this->CONFIG['update_version345_arch32'] == true)
+		if($this->CONFIG['update_version345_arch32'] == true)
         	{
                 $language = $this->GetUpdateLanguage($this->CONFIG['update_version345_language']);
                 $tpl[] = "em([0-9]{3})_32_(n|l)([0-9]{1,2}).nup"; 
