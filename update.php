@@ -8,6 +8,8 @@ $nod32ms->DownloadUpdateVer('eset_upd/v4', false);
 #$nod32ms->DownloadUpdateVer('eset_upd/v5', false);
 #$nod32ms->DownloadUpdateVer('eset_upd/v6', false);
 
+$nod32ms->ReadKeys();
+
 $nod32ms->DownloadSignature();
 //$nod32ms->DownloadSelfUpdate();
 ?>

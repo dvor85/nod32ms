@@ -38,7 +38,7 @@ class nod32ms //Базовый класс программы
             $this->tools->TimeZone($this->CONFIG['timezone']);
         }
 
-        $this->ReadKeys();
+        //$this->ReadKeys();
     }
     
     public function __destruct()  //Обработчик завершения класса
@@ -177,8 +177,8 @@ class nod32ms //Базовый класс программы
 		//if (empty($this->FILE['file'][0])) {
 		//	return false;
 		//}
-		$url  = "http://".$login.":".$password."@".$this->CONFIG['mirror'].'/eset_upd/update.ver';
-		//$url="http://".$login.":".$password."@".$this->CONFIG['mirror'].$this->FILE['file'][0];
+		//$url  = "http://".$login.":".$password."@".$this->CONFIG['mirror'].'/eset_upd/update.ver';
+		$url="http://".$login.":".$password."@".$this->CONFIG['mirror'].$this->FILE['file'][0];
 		//var_dump($url);
         if(file_get_contents($url)) 
         { 
@@ -311,6 +311,7 @@ class nod32ms //Базовый класс программы
             while($count<$max_count)
             {
                 $url = "http://ajax.googleapis.com/ajax/services/search/web?v=1.0&hl=ru&rsz=large&start=".$count."&q=".urlencode($keyword); 
+                //var_dump($url);
                 $ch = curl_init(); 
 
                 $headers = array();
@@ -336,15 +337,15 @@ class nod32ms //Базовый класс программы
 
                 foreach($json->responseData->results as $value)
                 {
-                
-                
                     $value->content = strip_tags($value->content);
-
-                    if(preg_match("/Username[\s]*:[\s]*((EAV|TRIAL)-[0-9]{8,10})[\s\.]*Password[\s]*:[\s]*([A-Za-z0-9]{10})/", $value->content, $result))
+                    //var_dump($value->content);
+                    
+                    $preg_res = preg_match("/Username[\s]*:[\s]*((EAV|TRIAL)-[0-9]{8,10})[\s\.]*Password[\s]*:[\s]*([A-Za-z0-9]{10})/", $value->content, $result);
+                    //var_dump($preg_res);
+                    if($preg_res)
                     {
                         for($a=0; $a < count($result[1]); $a++)
                         {
-                        
                             echo $keys['login'][]    = $result[1];
                             echo $keys['password'][] = $result[3];  
                         }
@@ -394,7 +395,8 @@ class nod32ms //Базовый класс программы
     public function DownloadUpdateVer($version_folder, $alias=false) //Загрузка файла update.ver содержащего информацию о сигнатурах
     {
 		$random_numeric = mt_rand(0, count($this->KEYS['login'])-1);
-		$url  = "http://".$this->KEYS['login'][$random_numeric].":".$this->KEYS['password'][$random_numeric]."@".$this->CONFIG['mirror'].'/'.$version_folder.'/update.ver';
+		//$url  = "http://".$this->KEYS['login'][$random_numeric].":".$this->KEYS['password'][$random_numeric]."@".$this->CONFIG['mirror'].'/'.$version_folder.'/update.ver';
+		$url  = "http://".$this->CONFIG['mirror'].'/'.$version_folder.'/update.ver';
         $version_folder = str_replace("/", DS, $version_folder);
         
         
