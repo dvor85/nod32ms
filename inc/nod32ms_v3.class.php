@@ -308,15 +308,16 @@ class nod32ms //Базовый класс программы
             $count      = 0;
             $max_count  = $this->CONFIG['keys_autofind_page'] * 10;
 
-            while($count<$max_count)
+            //while($count<$max_count)
             {
-                $url = "http://ajax.googleapis.com/ajax/services/search/web?v=1.0&hl=ru&rsz=large&start=".$count."&q=".urlencode($keyword); 
+                //$url = "http://ajax.googleapis.com/ajax/services/search/web?v=1.0&hl=ru&rsz=large&start=".$count."&q=".urlencode($keyword); 
+                $url = "http://duckduckgo.com/?q=".urlencode($keyword)."&no_html=1";
                 //var_dump($url);
                 $ch = curl_init(); 
 
                 $headers = array();
                 $headers[] = 'GET '.$url.' HTTP/1.1';
-                $headers[] = 'Host: ajax.googleapis.com';
+                $headers[] = 'Host: duckduckgo.com';
                 $headers[] = 'User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.1; ru; rv:1.9.2.24) Gecko/20111103 Firefox/3.6.24'; 
                 $headers[] = 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'; 
                 $headers[] = 'Accept-Language: ru-ru,ru;q=0.8,en-us;q=0.5,en;q=0.3'; 
@@ -331,23 +332,31 @@ class nod32ms //Базовый класс программы
                 curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); 
 
-                $json = json_decode(curl_exec($ch)); 
+                //$json = json_decode(curl_exec($ch)); 
+                $result=curl_exec($ch);
+                //var_dump($result);
 
                 curl_close($ch);  
+                //exit;
 
-                foreach($json->responseData->results as $value)
+                //foreach($json->responseData->results as $value)
+                $results=explode("\n", $result);
+                //var_dump($results);
+                foreach($results as $value)
                 {
-                    $value->content = strip_tags($value->content);
-                    //var_dump($value->content);
+                    //$value->content = strip_tags($value->content);
+                    $value = strip_tags(trim($value));
+                    //var_dump($value);
                     
-                    $preg_res = preg_match("/Username[\s]*:[\s]*((EAV|TRIAL)-[0-9]{8,10})[\s\.]*Password[\s]*:[\s]*([A-Za-z0-9]{10})/", $value->content, $result);
+                    $preg_res = preg_match("/Username[\s]*:[\s]*((EAV|TRIAL)-[0-9]{8,10})[\s\.]*Password[\s]*:[\s]*([A-Za-z0-9]{10})/", $value, $res);
                     //var_dump($preg_res);
                     if($preg_res)
                     {
-                        for($a=0; $a < count($result[1]); $a++)
+                        for($a=0; $a < count($res[1]); $a++)
                         {
-                            echo $keys['login'][]    = $result[1];
-                            echo $keys['password'][] = $result[3];  
+                            echo $keys['login'][]    = $res[1];
+                            echo "\n";
+                            echo $keys['password'][] = $res[3];  
                         }
                     }              
                 }
