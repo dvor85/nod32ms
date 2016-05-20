@@ -1,0 +1,10 @@
+<VirtualHost *:80>
+<Directory "/val/lib/nod32ms">
+  Require all granted
+  AllowOverride all
+  Options +Indexes
+</Directory>  
+
+DocumentRoot /var/lib/nod32ms
+  ServerName nod32.example.com
+</VirtualHost>

@@ -1,3 +1,4 @@
+#!/usr/bin/env php
 <?php
 ini_set('display_errors',1);
 require_once 'inc/classes/parser.class.php';
@@ -19,7 +20,8 @@ function getmodfilename($file) {
 			return implode('_',$arr)."/".basename($file);
 		} else
 			return $file;		
-	}*/
+	}
+*/
 
 #$arr=parse_ini_file('nod32ms/eset_upd/update.ver',true,INI_SCANNER_RAW);
 #$arr=$parser->ParseSectionVar('nod32ms/eset_upd/update.ver');

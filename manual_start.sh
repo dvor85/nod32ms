@@ -1,1 +1,1 @@
-php -q update.php
+./update.php

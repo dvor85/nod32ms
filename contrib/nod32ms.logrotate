@@ -1,0 +1,5 @@
+/var/log/nod32ms/*.log {
+missingok
+rotate 3
+size 20k
+}

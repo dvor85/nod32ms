@@ -1,7 +1,7 @@
 <?php
 class files
 {
-    public function CopyFile($source, $dest) //Копирование файла 
+    public function CopyFile($source, $dest) //РљРѕРїРёСЂРѕРІР°РЅРёРµ С„Р°Р№Р»Р° 
     {
         if(is_file($dest)){$this->CreateDir(dirname($dest));}else{$this->CreateDir($dest);}
         
@@ -13,7 +13,7 @@ class files
         } 
     }
     
-    public function CopyDir($source, $dest) //Копирование содержимого из директории в директорию 
+    public function CopyDir($source, $dest) //РљРѕРїРёСЂРѕРІР°РЅРёРµ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ РёР· РґРёСЂРµРєС‚РѕСЂРёРё РІ РґРёСЂРµРєС‚РѕСЂРёСЋ 
     {
         if($this->CheckDir($source))
         {
@@ -26,7 +26,7 @@ class files
         }       
     }
     
-    public function DeleteFile($filename) //Удаление файла
+    public function DeleteFile($filename) //РЈРґР°Р»РµРЅРёРµ С„Р°Р№Р»Р°
     {
         if($this->CheckFile($filename))
         {
@@ -39,7 +39,7 @@ class files
         }    
     }
     
-    public function DeleteFileLine($filename, $text) //Удаление строки из файла
+    public function DeleteFileLine($filename, $text) //РЈРґР°Р»РµРЅРёРµ СЃС‚СЂРѕРєРё РёР· С„Р°Р№Р»Р°
     {
         if($this->CheckFile($filename))
         {
@@ -50,7 +50,7 @@ class files
         }    
     }
     
-    public function DeleteDir($path) //Удаление директории
+    public function DeleteDir($path) //РЈРґР°Р»РµРЅРёРµ РґРёСЂРµРєС‚РѕСЂРёРё
     {
         if($this->CheckDir($path))
         {
@@ -63,7 +63,7 @@ class files
         }     
     }
     
-    public function CreateFile($filename, $text='') //Создание файла 
+    public function CreateFile($filename, $text='') //РЎРѕР·РґР°РЅРёРµ С„Р°Р№Р»Р° 
     {
         $file = fopen($filename, "a+");
         
@@ -73,7 +73,7 @@ class files
         fclose($file);         
     }
     
-    public function CreateDir($path) //Создание директории 
+    public function CreateDir($path) //РЎРѕР·РґР°РЅРёРµ РґРёСЂРµРєС‚РѕСЂРёРё 
     {
         if(!$this->CheckDir($path))
         {
@@ -101,7 +101,7 @@ class files
         }   
     }
     
-    public function CheckFile($filename) //Проверяет наличие файла
+    public function CheckFile($filename) //РџСЂРѕРІРµСЂСЏРµС‚ РЅР°Р»РёС‡РёРµ С„Р°Р№Р»Р°
     {
         if(file_exists($filename))
         {
@@ -109,7 +109,7 @@ class files
         }    
     }
     
-    public function SetFileAccess($filename, $order='777', $username='nod32ms') //Проверяет права доступа к файлу
+    public function SetFileAccess($filename, $order='777', $username='nod32ms') //РџСЂРѕРІРµСЂСЏРµС‚ РїСЂР°РІР° РґРѕСЃС‚СѓРїР° Рє С„Р°Р№Р»Сѓ
     {
         if($this->CheckFile($filename))
         {
@@ -128,7 +128,7 @@ class files
         }       
     }
     
-    public function SetDirAccess($path, $order='777', $username='nod32ms') //Проверяет права доступа к файлу
+    public function SetDirAccess($path, $order='777', $username='nod32ms') //РџСЂРѕРІРµСЂСЏРµС‚ РїСЂР°РІР° РґРѕСЃС‚СѓРїР° Рє С„Р°Р№Р»Сѓ
     {
         if($this->CheckDir($path))
         {
@@ -147,7 +147,7 @@ class files
         }
     }
     
-    public function CheckDir($path) //Проверяет наличие директории
+    public function CheckDir($path) //РџСЂРѕРІРµСЂСЏРµС‚ РЅР°Р»РёС‡РёРµ РґРёСЂРµРєС‚РѕСЂРёРё
     {
         if(file_exists(is_dir($path)))
         {

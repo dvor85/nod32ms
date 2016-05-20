@@ -9,7 +9,8 @@ define("DS",        DIRECTORY_SEPARATOR);
 define('SELF',      substr(dirname(__FILE__),0,-3)); 
 define('SYSTEM',    SELF."system".DS);
 define('PATTERN',   SELF."system".DS."pattern".DS);
-define('TOOLS',     SELF."system".DS."tools".DS); 
+define('TOOLS',     SELF."system".DS."tools".DS);
+define('TEMP_DIR',  SELF."tmp".DS); 
 
 define('INC',       dirname(__FILE__));
 define('CLASSES',   dirname(__FILE__).DS."classes".DS); 

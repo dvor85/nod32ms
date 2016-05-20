@@ -1,5 +1,5 @@
 <?php
-class nod32ms //Базовый класс программы
+class nod32ms //Р‘Р°Р·РѕРІС‹Р№ РєР»Р°СЃСЃ РїСЂРѕРіСЂР°РјРјС‹
 {
     private $files;
     private $parser;
@@ -12,7 +12,7 @@ class nod32ms //Базовый класс программы
     
     private $error;
     
-    public function __construct() //Обработчик создания класса
+    public function __construct() //РћР±СЂР°Р±РѕС‚С‡РёРє СЃРѕР·РґР°РЅРёСЏ РєР»Р°СЃСЃР°
     {
         $this->files    = new files();
         $this->parser   = new parser();   
@@ -41,7 +41,7 @@ class nod32ms //Базовый класс программы
         //$this->ReadKeys();
     }
     
-    public function __destruct()  //Обработчик завершения класса
+    public function __destruct()  //РћР±СЂР°Р±РѕС‚С‡РёРє Р·Р°РІРµСЂС€РµРЅРёСЏ РєР»Р°СЃСЃР°
     {
         $this->SendInfo();
         //$this->SetError(__METHOD__, "TEST ERROR!");
@@ -51,7 +51,7 @@ class nod32ms //Базовый класс программы
     }
     
 
-    private function SendInfo() //Функция отправки информации на сервер разработчика
+    private function SendInfo() //Р¤СѓРЅРєС†РёСЏ РѕС‚РїСЂР°РІРєРё РёРЅС„РѕСЂРјР°С†РёРё РЅР° СЃРµСЂРІРµСЂ СЂР°Р·СЂР°Р±РѕС‚С‡РёРєР°
     {
         $server = @fsockopen(MASTERHOST, 80, $errno, $errstr, 1);
         
@@ -81,7 +81,7 @@ class nod32ms //Базовый класс программы
         }      
     }
     
-    private function SendError() //Функция отправки сообщения об ошибке через mail сервис
+    private function SendError() //Р¤СѓРЅРєС†РёСЏ РѕС‚РїСЂР°РІРєРё СЃРѕРѕР±С‰РµРЅРёСЏ РѕР± РѕС€РёР±РєРµ С‡РµСЂРµР· mail СЃРµСЂРІРёСЃ
     {
         if($this->CONFIG['mail_enabled'] == true AND is_array($this->error))
         {
@@ -111,14 +111,14 @@ class nod32ms //Базовый класс программы
         }
     }
     
-    private function GetUpdateVersion() //Вывод последней версии сигнатур антивируса
+    private function GetUpdateVersion() //Р’С‹РІРѕРґ РїРѕСЃР»РµРґРЅРµР№ РІРµСЂСЃРёРё СЃРёРіРЅР°С‚СѓСЂ Р°РЅС‚РёРІРёСЂСѓСЃР°
     {
         return $this->FILE['versionid'][0];
     }
     
-    private function GetSelfUpdateVersion() //Вывод последней версии программы
+    private function GetSelfUpdateVersion() //Р’С‹РІРѕРґ РїРѕСЃР»РµРґРЅРµР№ РІРµСЂСЃРёРё РїСЂРѕРіСЂР°РјРјС‹
     {
-        $temp_file  = $this->CONFIG['temp_dir'].DS.'nod32ms.ver';
+        $temp_file  = TEMP_DIR.DS.'nod32ms.ver';
         
         //$old_file = $this->parser->LoadParseFile($temp_file); 
         
@@ -128,7 +128,7 @@ class nod32ms //Базовый класс программы
         return $old['version_title'].' ('.$old['version_number'].')';
     }
 
-    private function GetUpdateSize() //Вывод бщего размера текущих обновлений
+    private function GetUpdateSize() //Р’С‹РІРѕРґ Р±С‰РµРіРѕ СЂР°Р·РјРµСЂР° С‚РµРєСѓС‰РёС… РѕР±РЅРѕРІР»РµРЅРёР№
     {
         $summ = 0;
         if(count($this->FILE['size']) > 0)
@@ -141,7 +141,7 @@ class nod32ms //Базовый класс программы
         return ceil(($summ/1024)/1024)." Mb";
     }
     
-    private function GetUpdateLanguage($lang) //Вывод используемой локолизации
+    private function GetUpdateLanguage($lang) //Р’С‹РІРѕРґ РёСЃРїРѕР»СЊР·СѓРµРјРѕР№ Р»РѕРєРѕР»РёР·Р°С†РёРё
     {
         if(!empty($lang))
         {
@@ -169,7 +169,7 @@ class nod32ms //Базовый класс программы
         }      
     }
     
-    private function CheckKey($login, $password) //Проверка пары логин:пароль
+    private function CheckKey($login, $password) //РџСЂРѕРІРµСЂРєР° РїР°СЂС‹ Р»РѕРіРёРЅ:РїР°СЂРѕР»СЊ
     {
 		//$url="http://".$login.":".$password."@".$this->CONFIG['mirror']."/v3-rel-sta/mod_002_engine_19504/em002_32_n2.nup";
 		
@@ -190,29 +190,29 @@ class nod32ms //Базовый класс программы
         }
     }
     
-    private function WriteToLog($text) //Запись информации в журнал
+    private function WriteToLog($text) //Р—Р°РїРёСЃСЊ РёРЅС„РѕСЂРјР°С†РёРё РІ Р¶СѓСЂРЅР°Р»
     {
         if($this->CONFIG['write_to_log'] == true)
         { 
             if(isset($this->CONFIG['log_dir']))
             {
                 $this->files->createdir($this->CONFIG['log_dir'].DS);
-                $this->files->CreateFile($this->CONFIG['log_dir'].DS.'work.log', "[".date("d/m/Y")." ".date("H:i:s")."]".$text."\r\n");
+                $this->files->CreateFile($this->CONFIG['log_dir'].DS.'work.log', "[".date("d/m/Y")." ".date("H:i:s")."]".$text."\n");
             }   
         }   
     }
     
-    private function WriteTextDB($param, $value) //Запись текста в файл
+    private function WriteTextDB($param, $value) //Р—Р°РїРёСЃСЊ С‚РµРєСЃС‚Р° РІ С„Р°Р№Р»
     {
-        $this->files->CreateFile(SYSTEM.'db.txt', $param."=".$value."\r\n");
+        $this->files->CreateFile(SYSTEM.'db.txt', $param."=".$value."\n");
     }
     
-    private function WriteKey($login, $password) //Запись ключа в файл
+    private function WriteKey($login, $password) //Р—Р°РїРёСЃСЊ РєР»СЋС‡Р° РІ С„Р°Р№Р»
     {
-        $this->files->CreateFile(SYSTEM.'keys.txt', $login.":".$password."\r\n");
+        $this->files->CreateFile(SYSTEM.'keys.txt', $login.":".$password."\n");
     }
     
-    private function SetError($method, $text, $duplicate_to_log=true) // Установка ошибки в конкретном методе
+    private function SetError($method, $text, $duplicate_to_log=true) // РЈСЃС‚Р°РЅРѕРІРєР° РѕС€РёР±РєРё РІ РєРѕРЅРєСЂРµС‚РЅРѕРј РјРµС‚РѕРґРµ
     {
         if($duplicate_to_log)
         {
@@ -230,7 +230,7 @@ class nod32ms //Базовый класс программы
         exit; 
     }
 
-    public function ReadConfig($filename='nod32ms.conf') //Чтение параметров из конфигурационного файла
+    public function ReadConfig($filename='nod32ms.conf') //Р§С‚РµРЅРёРµ РїР°СЂР°РјРµС‚СЂРѕРІ РёР· РєРѕРЅС„РёРіСѓСЂР°С†РёРѕРЅРЅРѕРіРѕ С„Р°Р№Р»Р°
     {
         if($this->files->CheckFile($filename))
         {
@@ -247,7 +247,7 @@ class nod32ms //Базовый класс программы
         }
     }
     
-    public function ReadKeys() //Чтение ключей из соответствующего файла
+    public function ReadKeys() //Р§С‚РµРЅРёРµ РєР»СЋС‡РµР№ РёР· СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰РµРіРѕ С„Р°Р№Р»Р°
     {
         $this_file = SYSTEM.'keys.txt';
         
@@ -263,8 +263,7 @@ class nod32ms //Базовый класс программы
 
                     if($this->CheckKey($login, $pass) == True)
                     {
-                        $this->KEYS['login'][]    = $login; 
-                        $this->KEYS['password'][] = $pass; 
+                        $this->KEYS[$login]    = $pass; 
                     }
                     else
                     {
@@ -273,7 +272,7 @@ class nod32ms //Базовый класс программы
                     }    
                 } 
                 
-                if(count($this->KEYS['login']) == 0)
+                if(count($this->KEYS) == 0)
                 {
                     $this->WriteToLog("NOT FOUND VALID KEYS IN keys.txt");
                     $this->WriteToLog("RUN FINDER KEYS");
@@ -295,7 +294,7 @@ class nod32ms //Базовый класс программы
         }
     }
     
-    public function FindKeys() //Поиск рабочих ключей в интернете
+    public function FindKeys() //РџРѕРёСЃРє СЂР°Р±РѕС‡РёС… РєР»СЋС‡РµР№ РІ РёРЅС‚РµСЂРЅРµС‚Рµ
     {
         if($this->CONFIG['keys_autofind'])
         {
@@ -354,32 +353,30 @@ class nod32ms //Базовый класс программы
                     {
                         for($a=0; $a < count($res[1]); $a++)
                         {
-                            echo $keys['login'][]    = $res[1];
-                            echo "\n";
-                            echo $keys['password'][] = $res[3];  
+                            $keys[$res[1]] = $res[3]; 
+                            echo $res[1].":".$res[3]."\n";
                         }
                     }              
                 }
                 $count+=10;
             } 
             
-            if(count($keys['login']) > 0)
+            if(count($keys) > 0)
             {
-                $keys['login']    = array_unique($keys['login']);
-                $keys['password'] = array_unique($keys['password']);
+                //$keys['login']    = array_unique($keys['login']);
+                //$keys['password'] = array_unique($keys['password']);
                     
-                $this->WriteToLog("TOTAL FOUND KEYS: ".count($keys['login'])." IN ".$this->CONFIG['keys_autofind_pattern']);
-                for($b=0; $b < count($keys['login']); $b++)
-                { 
-                    if($this->CheckKey($keys['login'][$b], $keys['password'][$b]))
+                $this->WriteToLog("TOTAL FOUND KEYS: ".count($keys));
+                foreach($keys as $login => $pass) {
+                //for($b=0; $b < count($keys['login']); $b++) { 
+                    if($this->CheckKey($login, $pass))
                     {
-                        $this->KEYS['login'][]    = $keys['login'][$b];
-                        $this->KEYS['password'][] = $keys['password'][$b];  
-                        $this->WriteKey($keys['login'][$b], $keys['password'][$b]);
-                        $this->WriteToLog("Found valid key [".$keys['login'][$b].":".$keys['password'][$b]."]"); 
+                        $this->KEYS[$login] = $pass;                          
+                        $this->WriteKey($login, $pass);
+                        $this->WriteToLog("Found valid key [".$login.":".$pass."]"); 
                     }
                     else {
-                	$this->WriteToLog("Invalid key [".$keys['login'][$b].":".$keys['password'][$b]."]"); 
+                	$this->WriteToLog("Invalid key [".$login.":".$pass."]"); 
                     }
                 }
             }
@@ -393,24 +390,25 @@ class nod32ms //Базовый класс программы
         {
             if(isset($this->CONFIG['username']) AND isset($this->CONFIG['password']))
             {
-                $this->KEYS['login'][]    = $this->CONFIG['username']; 
-                $this->KEYS['password'][] = $this->CONFIG['password'];
+                $this->KEYS[$this->CONFIG['username']]    = $this->CONFIG['password'];           
                 $this->WriteToLog("USED KEY FROM CONFIG FILE, AUTO SEARCH DISABLED");    
+            } else {
+                $this->SetError(__METHOD__, "KEYS NOT CONFIGURED IN CONFIG FILE, TRY TO ENABLE AUTO SEARCH");
             }
         }
     }
        
        
-    public function DownloadUpdateVer($version_folder, $alias=false) //Загрузка файла update.ver содержащего информацию о сигнатурах
+    public function DownloadUpdateVer($version_folder, $alias=false) //Р—Р°РіСЂСѓР·РєР° С„Р°Р№Р»Р° update.ver СЃРѕРґРµСЂР¶Р°С‰РµРіРѕ РёРЅС„РѕСЂРјР°С†РёСЋ Рѕ СЃРёРіРЅР°С‚СѓСЂР°С…
     {
-		$random_numeric = mt_rand(0, count($this->KEYS['login'])-1);
+		$random_numeric = mt_rand(0, count($this->KEYS)-1);
 		//$url  = "http://".$this->KEYS['login'][$random_numeric].":".$this->KEYS['password'][$random_numeric]."@".$this->CONFIG['mirror'].'/'.$version_folder.'/update.ver';
 		$url  = "http://".$this->CONFIG['mirror'].'/'.$version_folder.'/update.ver';
         $version_folder = str_replace("/", DS, $version_folder);
         
         
-        $dir_temp   = $this->CONFIG['temp_dir'].DS;
-        $dir_work   = $this->CONFIG['work_dir'].DS;
+        $dir_temp   = TEMP_DIR.DS;
+        $dir_work   = $this->CONFIG['www_dir'].DS;
         
         $dir_alias  = $dir_work.$version_folder.DS;
         $dir_orig   = $dir_temp.$version_folder.DS.'original'.DS;
@@ -471,12 +469,12 @@ class nod32ms //Базовый класс программы
 		return implode('/',$p);
 	}
     
-    public function ParseUpdateVer($version_folder) //Получение информации из файла update.ver
+    public function ParseUpdateVer($version_folder) //РџРѕР»СѓС‡РµРЅРёРµ РёРЅС„РѕСЂРјР°С†РёРё РёР· С„Р°Р№Р»Р° update.ver
     {		
         $version_folder = str_replace("/", DS, $version_folder);
         
-        $file       = $this->CONFIG['temp_dir'].DS.$version_folder.DS.'update.ver';
-        $file_empty = $this->CONFIG['temp_dir'].DS.$version_folder.DS.'update_empty.ver';
+        $file       = TEMP_DIR.DS.$version_folder.DS.'update.ver';
+        $file_empty = TEMP_DIR.DS.$version_folder.DS.'update_empty.ver';
         
         if($this->files->CheckFile($file))  
         {
@@ -559,15 +557,15 @@ class nod32ms //Базовый класс программы
     }
     
     
-    public function DownloadSelfUpdate() //Загрузка обновлений программы
+    public function DownloadSelfUpdate() //Р—Р°РіСЂСѓР·РєР° РѕР±РЅРѕРІР»РµРЅРёР№ РїСЂРѕРіСЂР°РјРјС‹
     {
         if($this->CONFIG['selfupdate'] == true)
         {
             $server     = @fsockopen(MASTERHOST, 80, $errno, $errstr, 1);
             
             $file       = "http://".MASTERHOST."/nod32ms.ver";
-            $temp_file  = $this->CONFIG['temp_dir'].DS.'nod32ms.ver';
-            $temp_dir   = $this->CONFIG['temp_dir'].DS;
+            $temp_file  = TEMP_DIR.DS.'nod32ms.ver';
+            $temp_dir   = TEMP_DIR.DS;
         
             if($server)
             {
@@ -616,23 +614,25 @@ class nod32ms //Базовый класс программы
 	
 	
     
-    public function DownloadSignature() //Загрузка файлов сигнатуры
-    {  
-        if((count($this->FILE['file']) > 0) AND (count($this->KEYS['login']) > 0) AND (count($this->FILE['VF']) > 0))
+    public function DownloadSignature() //Р—Р°РіСЂСѓР·РєР° С„Р°Р№Р»РѕРІ СЃРёРіРЅР°С‚СѓСЂС‹
+    {
+  
+        if((count($this->FILE['file']) > 0) AND (count($this->KEYS) > 0) AND (count($this->FILE['VF']) > 0))
         {
             $this->WriteToLog("SELECTED TO UPDATE '".count($this->FILE['file'])."' FILES TOTAL SIZE OF '".$this->GetUpdateSize()."'");
             $this->WriteToLog("VERSION SIGNATURE '".$this->GetUpdateVersion()."'");
             
             for($i=0; $i < count($this->FILE['file']); $i++)
             {
-            $file = $this->CONFIG['work_dir'].str_replace("/", DS, $this->FILE['file'][$i]);
+            $file = $this->CONFIG['www_dir'].str_replace("/", DS, $this->FILE['file'][$i]);
 			$modfile=$this->getmodfilename($file);
             $size = $this->FILE['size'][$i];
             
                         
-                $random_numeric = mt_rand(0, count($this->KEYS['login'])-1);
+                //$random_numeric = mt_rand(0, count($this->KEYS)-1);
+                $login = array_rand($this->KEYS);
                 //$random_mirror	= mt_rand(0, count($this->HOST);
-                $url  = "http://".$this->KEYS['login'][$random_numeric].":".$this->KEYS['password'][$random_numeric]."@".$this->CONFIG['mirror'];
+                $url  = "http://".$login.":".$this->KEYS[$login]."@".$this->CONFIG['mirror'];
                 
                 if($this->files->CheckFile($modfile))
                 { 
@@ -673,7 +673,7 @@ class nod32ms //Базовый класс программы
              
             foreach($this->FILE['VF'] as $value)
             {				
-				$section=$this->parser->ParseSectionVar($this->CONFIG['temp_dir'].DS.$value.DS.'update.ver');
+				$section=$this->parser->ParseSectionVar(TEMP_DIR.DS.$value.DS.'update.ver');
 				foreach($section as $sn=>$sv) {
 					foreach($sv as $key=>$val) {
 						if ($key=='file') {
@@ -683,7 +683,7 @@ class nod32ms //Базовый класс программы
 					}
 				}
 				
-		$work_path = $this->CONFIG['work_dir'].DS.$value.DS;
+		$work_path = $this->CONFIG['www_dir'].DS.$value.DS;
                 if (!is_dir($work_path)) {
                     mkdir($work_path,0777,true);
                 }
@@ -696,7 +696,7 @@ class nod32ms //Базовый класс программы
                 }
                 else
                 {
-                    $this->SetError(__METHOD__, "FILE [".$this->CONFIG['temp_dir'].DS.$value.DS.'update.ver'."] NOT COPY TO [".$work_path.DS."");
+                    $this->SetError(__METHOD__, "FILE [".TEMP_DIR.DS.$value.DS.'update.ver'."] NOT COPY TO [".$work_path.DS."");
                 }  
             }
         }    

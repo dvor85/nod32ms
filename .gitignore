@@ -1,5 +1,6 @@
-log/
-nod32ms/eset_upd/
+wget-log
+nohup.out
+tmp/
 system/keys.txt
 nod_ms.tar.gz
 change.log

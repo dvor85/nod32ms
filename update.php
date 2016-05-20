@@ -1,4 +1,6 @@
+#!/usr/bin/env php
 <?php
+
 require_once "inc/init.php";
 
 $nod32ms = new nod32ms();
