@@ -179,7 +179,7 @@ class nod32ms //Базовый класс программы
 		//}
 		//$url  = "http://".$login.":".$password."@".$this->CONFIG['mirror'].'/eset_upd/update.ver';
 		$url="http://".$login.":".$password."@".$this->CONFIG['mirror'].$this->FILE['file'][0];
-		//var_dump($url);
+		var_dump($url);
         if(file_get_contents($url)) 
         { 
             return true;      
@@ -304,61 +304,69 @@ class nod32ms //Базовый класс программы
             $date       = date("Y");
             $keyword    = trim("nod32+username+eav-+trial-");
             
-            $count      = 0;
-            $max_count  = $this->CONFIG['keys_autofind_page'] * 10;
+            $count      = 1;
+            $max_count  = $this->CONFIG['keys_autofind_page'];
 
             //while($count<$max_count)
             {
-                //$url = "http://ajax.googleapis.com/ajax/services/search/web?v=1.0&hl=ru&rsz=large&start=".$count."&q=".urlencode($keyword); 
-                $url = "http://duckduckgo.com/?q=".urlencode($keyword)."&no_html=1";
-                //var_dump($url);
-                $ch = curl_init(); 
+                //$url = "http://ajax.googleapis.com/ajax/services/search/web?v=1.0&hl=ru&rsz=large&start=".$count."&q=".urlencode($keyword);
+                
+                $host = 'duckduckgo.com';
+                $query = "/?q=".urlencode($keyword)."&no_html=1";
+                $url = "http://".$host.$query;
 
                 $headers = array();
-                $headers[] = 'GET '.$url.' HTTP/1.1';
-                $headers[] = 'Host: duckduckgo.com';
+                $headers[] = 'GET '.$query.' HTTP/1.1';
+                $headers[] = 'Host: '.$host;
                 $headers[] = 'User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.1; ru; rv:1.9.2.24) Gecko/20111103 Firefox/3.6.24'; 
-                $headers[] = 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'; 
-                $headers[] = 'Accept-Language: ru-ru,ru;q=0.8,en-us;q=0.5,en;q=0.3'; 
+                $headers[] = 'Accept:text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8'; 
+                $headers[] = 'Accept-Language:ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4'; 
                 $headers[] = 'Accept-Charset: windows-1251,utf-8;q=0.7,*;q=0.7'; 
-                $headers[] = 'Keep-Alive: 115'; 
                 $headers[] = 'Connection: keep-alive'; 
-                $headers[] = 'Referer: '.$url; 
+                $headers[] = 'Pragma:no-cache';
+                //$headers[] = 'Referer: '.$url;
 
+                $ch = curl_init();
                 curl_setopt($ch, CURLOPT_URL, $url); 
                 curl_setopt($ch, CURLOPT_FAILONERROR, 1);  
                 curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);   
                 curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); 
+                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 
                 //$json = json_decode(curl_exec($ch)); 
-                $result=curl_exec($ch);
-                //var_dump($result);
+                $result=strip_tags(trim(curl_exec($ch)));
+                
+                //$this->files->deleteFile($this->CONFIG['log_dir'].DS.'test.html');
+                //$this->files->CreateFile($this->CONFIG['log_dir'].DS.'test.html', $result);
 
                 curl_close($ch);  
                 //exit;
 
                 //foreach($json->responseData->results as $value)
-                $results=explode("\n", $result);
-                //var_dump($results);
-                foreach($results as $value)
-                {
+                //$results=explode("\n", $result);
+                
+                //foreach($results as $value)
+                //{
                     //$value->content = strip_tags($value->content);
-                    $value = strip_tags(trim($value));
+                    //$value = strip_tags(trim($value));
                     //var_dump($value);
                     
-                    $preg_res = preg_match("/Username[\s]*:[\s]*((EAV|TRIAL)-[0-9]{8,10})[\s\.]*Password[\s]*:[\s]*([A-Za-z0-9]{10})/", $value, $res);
-                    //var_dump($preg_res);
+                    $preg_res = preg_match_all("/Username.*?:.*?((?:EAV|TRIAL)-[0-9]{8,10}).*?Password.*?:.*?(\w{10})/s", $result, $res);
+                    
+                    //if (count($res[1])>0)
+                    //    var_dump($res);
+                    
                     if($preg_res)
                     {
                         for($a=0; $a < count($res[1]); $a++)
                         {
-                            $keys[$res[1]] = $res[3]; 
-                            echo $res[1].":".$res[3]."\n";
+                            $keys[$res[1][$a]] = $res[2][$a]; 
+                            echo $res[1][$a].":".$res[2][$a]."\n";
                         }
                     }              
-                }
-                $count+=10;
+                //}
+                $count+=1;
             } 
             
             if(count($keys) > 0)
