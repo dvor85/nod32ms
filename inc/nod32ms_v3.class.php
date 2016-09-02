@@ -302,7 +302,7 @@ class nod32ms //Базовый класс программы
             //$tag_array = array("eset", "nod32", "keys", "login", "password", "username", "eav-", "trial-");
             
             $date       = date("Y");
-            $keyword    = trim("nod32+username+eav-+trial-");
+            $keyword    = trim("nod32+username:+password:+eav-+trial-+2017");
             
             $count      = 1;
             $max_count  = $this->CONFIG['keys_autofind_page'];
@@ -311,8 +311,12 @@ class nod32ms //Базовый класс программы
             {
                 //$url = "http://ajax.googleapis.com/ajax/services/search/web?v=1.0&hl=ru&rsz=large&start=".$count."&q=".urlencode($keyword);
                 
-                $host = 'duckduckgo.com';
-                $query = "/?q=".urlencode($keyword)."&no_html=1";
+                //$host = 'duckduckgo.com';
+                //$query = "/?q=".urlencode($keyword)."&no_html=1";
+                
+                $host = 'updateanti-virus.com';
+                $query = "/";
+                
                 $url = "http://".$host.$query;
 
                 $headers = array();
@@ -337,8 +341,8 @@ class nod32ms //Базовый класс программы
                 //$json = json_decode(curl_exec($ch)); 
                 $result=strip_tags(trim(curl_exec($ch)));
                 
-                //$this->files->deleteFile($this->CONFIG['log_dir'].DS.'test.html');
-                //$this->files->CreateFile($this->CONFIG['log_dir'].DS.'test.html', $result);
+                $this->files->deleteFile($this->CONFIG['log_dir'].DS.'test.html');
+                $this->files->CreateFile($this->CONFIG['log_dir'].DS.'test.html', $result);
 
                 curl_close($ch);  
                 //exit;
