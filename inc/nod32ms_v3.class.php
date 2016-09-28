@@ -209,6 +209,7 @@ class nod32ms //Базовый класс программы
     
     private function WriteKey($login, $password) //Запись ключа в файл
     {
+        $this->WriteToLog("write key to: ".SYSTEM.'keys.txt');
         $this->files->CreateFile(SYSTEM.'keys.txt', $login.":".$password."\n");
     }
     
@@ -314,7 +315,7 @@ class nod32ms //Базовый класс программы
                 //$host = 'duckduckgo.com';
                 //$query = "/?q=".urlencode($keyword)."&no_html=1";
                 
-                $host = 'updateanti-virus.com';
+                $host = 'updateanti-virus.blogspot.ru';
                 $query = "/";
                 
                 $url = "http://".$host.$query;
@@ -678,7 +679,7 @@ class nod32ms //Базовый класс программы
                     }
                     else
                     {
-                        $this->files->DeleteFile(SYSTEM."keys.txt");
+                        $this->files->DeleteFile($modfile);
                     }      
                 }    
     	}
