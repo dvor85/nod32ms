@@ -178,6 +178,7 @@ class nod32ms //Базовый класс программы
 		//	return false;
 		//}
 		//$url  = "http://".$login.":".$password."@".$this->CONFIG['mirror'].'/eset_upd/update.ver';
+                $this->WriteToLog("CheckKey ".$login.":".$password);
 		$url="http://".$login.":".$password."@".$this->CONFIG['mirror'].$this->FILE['file'][0];
 		var_dump($url);
         if(file_get_contents($url)) 
@@ -358,11 +359,11 @@ class nod32ms //Базовый класс программы
                     //var_dump($value);
                     
                     $preg_res = preg_match_all("/Username.*?:.*?((?:EAV|TRIAL)-[0-9]{8,10}).*?Password.*?:.*?(\w{10})/s", $result, $res);
-                    
+                    //var_dump($res);
                     //if (count($res[1])>0)
-                    //    var_dump($res);
+                    //var_dump($preg_res);
                     
-                    if($preg_res)
+                    //if($preg_res)
                     {
                         for($a=0; $a < count($res[1]); $a++)
                         {
