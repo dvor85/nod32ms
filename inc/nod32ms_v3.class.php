@@ -316,7 +316,9 @@ class nod32ms //Базовый класс программы
                 //$host = 'duckduckgo.com';
                 //$query = "/?q=".urlencode($keyword)."&no_html=1";
                 
-                $host = 'updateanti-virus.blogspot.ru';
+                //$host = 'updateanti-virus.blogspot.ru';
+                //$host = 'new-free-keys.blogspot.se';
+                $host = 'dehno14.blogfa.com';
                 $query = "/";
                 
                 $url = "http://".$host.$query;
@@ -358,7 +360,7 @@ class nod32ms //Базовый класс программы
                     //$value = strip_tags(trim($value));
                     //var_dump($value);
                     
-                    $preg_res = preg_match_all("/Username.*?:.*?((?:EAV|TRIAL)-[0-9]{8,10}).*?Password.*?:.*?(\w{10})/s", $result, $res);
+                    $preg_res = preg_match_all("/Username.*?(?::|-).*?((?:EAV|TRIAL)-[0-9]{8,10}).*?Password.*?(?::|-).*?(\w{10})/s", $result, $res);
                     //var_dump($res);
                     //if (count($res[1])>0)
                     //var_dump($preg_res);
