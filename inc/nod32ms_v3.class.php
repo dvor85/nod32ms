@@ -318,7 +318,8 @@ class nod32ms //Базовый класс программы
                 
                 //$host = 'updateanti-virus.blogspot.ru';
                 //$host = 'new-free-keys.blogspot.se';
-                $host = 'dehno14.blogfa.com';
+                //$host = 'dehno14.blogfa.com';
+                $host = 'nod32key.eu';
                 $query = "/";
                 
                 $url = "http://".$host.$query;
@@ -361,6 +362,8 @@ class nod32ms //Базовый класс программы
                     //var_dump($value);
                     
                     $preg_res = preg_match_all("/Username.*?(?::|-).*?((?:EAV|TRIAL)-[0-9]{8,10}).*?Password.*?(?::|-).*?(\w{10})/s", $result, $res);
+                    if (!$preg_res)
+                        $preg_res = preg_match_all("/((?:EAV|TRIAL)-[0-9]{8,10}).+?(\w{10})/s", $result, $res);
                     //var_dump($res);
                     //if (count($res[1])>0)
                     //var_dump($preg_res);
