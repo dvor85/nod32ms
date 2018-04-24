@@ -319,7 +319,7 @@ class nod32ms //Базовый класс программы
                 //$host = 'updateanti-virus.blogspot.ru';
                 //$host = 'new-free-keys.blogspot.se';
                 //$host = 'dehno14.blogfa.com';
-                $host = 'nod32key.eu';
+                $host = 'nod32-for-free.blogspot.ru';
                 $query = "/";
                 
                 $url = "http://".$host.$query;
